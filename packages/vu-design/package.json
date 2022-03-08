@@ -1,0 +1,24 @@
+{
+  "name": "vu-design",
+  "version": "1.0.0",
+  "description": "A Component Library for Vue 3",
+  "description": "",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "ui",
+    "vue3",
+    "vu",
+    "vu-design"
+  ],
+  "author": "lihh",
+  "license": "MIT",
+  "devDependencies": {
+    "fast-glob": "^3.2.11",
+    "ts-morph": "^14.0.0"
+  }
+}
