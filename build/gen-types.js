@@ -65,7 +65,7 @@ const genEntryTypes = async () => {
  * @description 复制类型
  * @returns {*}
  */
-const copyEntryTypes = async () => {
+const copyEntryTypes = () => {
   const src = path.resolve(outDir, 'entry/types')
   const copy = (module) =>
     parallel(
@@ -81,7 +81,7 @@ const copyEntryTypes = async () => {
   return parallel(copy('esm'), copy('cjs'))
 }
 
-const genTypes = series(genEntryTypes, copyEntryTypes)
+const genTypes = series(genEntryTypes, copyEntryTypes())
 
 module.exports = {
   genEntryTypes,

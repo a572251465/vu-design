@@ -1,6 +1,6 @@
 {
   "name": "vu-design",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A Component Library for Vue 3",
   "description": "",
   "main": "lib/index.js",
