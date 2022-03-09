@@ -6,3 +6,7 @@ dist
 *.png
 *.gif
 *.d.ts
+*.scss
+*.woff2
+*.ttf
+*.woff

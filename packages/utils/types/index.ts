@@ -17,3 +17,7 @@ export const withInstall = <T>(component) => {
   }
   return component
 }
+
+export interface IInstallOptions {
+  zIndex: number
+}

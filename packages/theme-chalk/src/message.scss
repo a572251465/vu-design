@@ -1,0 +1,67 @@
+@use './mixins/mixins' as *;
+@use './mixins/public' as *;
+@include b(message) {
+  min-width: 380px;
+  box-sizing: border-box;
+  border: 1px solid #ebeef5;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transition: opacity 0.3s, transform 0.4s, top 0.4s;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  height: 46px;
+  @include public-flex;
+  justify-content: space-between;
+
+  // 定制化
+  &--dark {
+    background-image: linear-gradient(#25354D, #364459, #354562, #36445C) !important;
+    border: .5px solid #FF7F00 !important;
+    color: #FF7F00 !important;
+    border-radius: 23px;
+  }
+
+  i {
+    font-size: 18px;
+  }
+
+  @include e(content) {
+    @include public-flex;
+    justify-content: flex-start;
+    flex: 1;
+
+    @include e(left) {
+      width: 15%;
+      text-align: center;
+    }
+
+    @include e(center) {
+      @include public-flex;
+      justify-content: flex-start;
+      font-size: 16px;
+      margin-left: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  @include e(close) {
+    @include public-flex;
+    justify-content: center;
+    width: 10%;
+    cursor: pointer;
+  }
+
+  @include colorMixin(message) {
+    background: mix($value, #fff, 15%);
+    color: $value;
+  }
+}
+
+.vu-message-fade-enter-from,
+.vu-message-fade-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -100%);
+}

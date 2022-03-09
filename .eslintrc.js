@@ -19,7 +19,12 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'off',
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    'eslint-disable-next-line': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'vue/attributes-order': 'off'
   },
   globals: {
     defineProps: 'readonly',

@@ -1,3 +1,7 @@
+import { IInstallOptions } from '../types'
+
+const $Element = {}
+
 /**
  * @author lihh
  * @description 判单是否是undefined
@@ -15,7 +19,25 @@ export const isUndefined = (value: any) => typeof value === 'undefined'
  */
 export const addUnit = (value: string | number, defaultUnit = 'px'): string => {
   if (typeof value === 'string') {
-    if (defaultLenUnit.some(item => value.endsWith(item))) return value
+    if (defaultLenUnit.some((item) => value.endsWith(item))) return value
   }
   return `${value}${defaultUnit}`
 }
+
+/**
+ * @author lihh
+ * @description 设置全局变量
+ * @param option 设置参数
+ */
+export const setConfig = (option: IInstallOptions) => {
+  Object.entries(option).forEach(([value, key]) => {
+    $Element[key] = value
+  })
+}
+
+/**
+ * @author lihh
+ * @description 获取全局配置
+ * @param key 获取key值
+ */
+export const getConfig = (key: keyof IInstallOptions) => $Element[key]
