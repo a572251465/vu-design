@@ -37,14 +37,15 @@ const pathRewriter = (format) => {
 /**
  * @author lihh
  * @description 基于through2 进行流转换
- * @param format 格式 es/ lib
+ * @param replaceFn 表示替换的函数
+ * @param args 表示传递剩余的参数
  * @returns {(function(*, *, *): void)|*}
  */
-const transformFlow = (format) => {
+const transformFlow = (replaceFn, ...args) => {
   return function (globFile, encoding, callback) {
     const file = new File(globFile)
     const { contents: contentBuffer } = file
-    const replaceContentHandle = pathRewriter(format)
+    const replaceContentHandle = replaceFn(...args)
     const newContent = Buffer.isBuffer(contentBuffer)
       ? replaceContentHandle(contentBuffer.toString())
       : contentBuffer

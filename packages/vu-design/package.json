@@ -1,22 +1,9 @@
 {
   "name": "vu-design",
-  "version": "1.0.3",
+  "version": "1.0.8",
   "description": "A Component Library for Vue 3",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "exports": {
-    ".": {
-      "require": "./lib/index.js",
-      "import": "./es/index.js"
-    },
-    "./es": "./es/index.js",
-    "./lib": "./lib/index.js",
-    "./es/*.mjs": "./es/*.js",
-    "./es/*": "./es/*.js",
-    "./lib/*.js": "./lib/*.js",
-    "./lib/*": "./lib/*.js",
-    "./*": "./*"
-  },
   "homepage": "https://github.com/a572251465/vu-design",
   "repository": {
     "type": "git",

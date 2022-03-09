@@ -11,9 +11,9 @@
 
 @font-face {
   font-family: "vu-ui-icons"; /* Project id 3227008 */
-  src: url('./fonts/iconfont.woff2?t=1646637746224') format('woff2'),
-  url('./fonts/iconfont.woff?t=1646637746224') format('woff'),
-  url('./fonts/iconfont.ttf?t=1646637746224') format('truetype');
+  src: url('fonts/iconfont.woff2?t=1646637746224') format('woff2'),
+  url('fonts/iconfont.woff?t=1646637746224') format('woff'),
+  url('fonts/iconfont.ttf?t=1646637746224') format('truetype');
 }
 
 [class^='#{$namespace}-icon'],[class*=' #{$namespace}-icon'] {

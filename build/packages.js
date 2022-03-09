@@ -17,6 +17,8 @@ exports.buildPackages = (dirname, name) => {
     // 表示打包的出力路径
     const output = path.resolve(dirname, config.output.name)
 
+    // 表示替换函数
+    const replaceFn = (...args) => pathRewriter(...args)
     return series(
       withTaskName(`build:${dirname}`, () => {
         const tsConfig = path.resolve(projectRoot, 'tsconfig.json')
@@ -29,7 +31,7 @@ exports.buildPackages = (dirname, name) => {
               module: config.module
             })()
           )
-          .pipe(through2.obj(transformFlow(config.output.name)))
+          .pipe(through2.obj(transformFlow(replaceFn, config.output.name)))
           .pipe(dest(output))
       }),
 

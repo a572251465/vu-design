@@ -4,6 +4,9 @@ const { series, src, dest } = require('gulp')
 const autoprefixer = require('gulp-autoprefixer')
 const cleanCSS = require('gulp-clean-css')
 const path = require('path')
+const through2 = require('through2')
+const File = require('vinyl')
+const { run, withTaskName } = require('../../build/utils')
 
 /**
  * @author lihh
@@ -12,7 +15,36 @@ const path = require('path')
 const compile = () => {
   const sass = gulpSass(dartSass)
 
-  return src(path.resolve(__dirname, './src/*.scss')).pipe(sass.sync()).pipe(autoprefixer({})).pipe(cleanCSS()).pipe(dest('./dist/css'))
+  // 替换内容函数
+  const replaceFn = () => (id) => {
+    id = id.replace(/fonts\/iconfont/g, `vu-design/theme-chalk/fonts/iconfont`)
+    return id
+  }
+  return src(path.resolve(__dirname, './src/*.scss'))
+    .pipe(sass.sync())
+    .pipe(autoprefixer({}))
+    .pipe(
+      through2.obj(function (globFile, encoding, callback) {
+        const file = new File(globFile)
+        const params = {
+          base: file.base.replace(/\/src/, ''),
+          path: file.path.replace(/\/src/, '')
+        }
+        const { contents: contentBuffer } = file
+        const replaceContentHandle = replaceFn()
+        const newContent = Buffer.isBuffer(contentBuffer)
+          ? replaceContentHandle(contentBuffer.toString())
+          : contentBuffer
+        const res = new File({
+          ...file,
+          contents: Buffer.from(newContent),
+          ...params
+        })
+        this.push(res)
+        callback()
+      })
+    )
+    .pipe(dest('./dist/css'))
 }
 
 /**
@@ -20,7 +52,9 @@ const compile = () => {
  * @description 进行字体copy
  */
 const copyFont = () => {
-  return src(path.resolve(__dirname, './src/fonts/**')).pipe(cleanCSS()).pipe(dest('./dist/fonts'))
+  return src(path.resolve(__dirname, './src/fonts/**')).pipe(
+    dest('./dist/fonts')
+  )
 }
 
 /**
@@ -28,13 +62,14 @@ const copyFont = () => {
  * @description 进行样式copy
  */
 const copyStyle = () => {
-  return src(path.resolve(__dirname, 'dist/**')).pipe(dest(path.resolve(__dirname, '../../dist/theme-chalk')))
+  return src(path.resolve(__dirname, 'dist/**'))
+    .pipe(cleanCSS())
+    .pipe(dest(path.resolve(__dirname, '../../dist/theme-chalk')))
 }
 
-const buildStyle = series(
-  compile,
-  copyFont,
-  copyStyle
-)
+const buildStyle = series(compile, copyFont, copyStyle)
 
-exports.default = buildStyle
+exports.default = series(
+  withTaskName('remove: theme-chalk', () => run(`rm -rf ./dist`)),
+  buildStyle
+)
