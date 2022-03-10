@@ -63,7 +63,6 @@ const copyFont = () => {
  */
 const copyStyle = () => {
   return src(path.resolve(__dirname, 'dist/**'))
-    .pipe(cleanCSS())
     .pipe(dest(path.resolve(__dirname, '../../dist/theme-chalk')))
 }
 

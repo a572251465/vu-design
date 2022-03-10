@@ -1,9 +1,16 @@
 <script lang="ts" setup>
-import { VuMessage } from '@vu-design/components'
+import { VuMessage, VuMessageBox } from '@vu-design/components'
 const btns = ['success', 'warning', 'danger', 'info', 'dark']
 
 const clickMessageHandle = (item) => {
   VuMessage[item](`我是${item}色`)
+}
+const messageBoxHandle = () => {
+  VuMessageBox.alert('我的消息', '提示', {
+    callback: () => {
+      console.log('你成功了')
+    }
+  })
 }
 </script>
 
@@ -14,6 +21,10 @@ const clickMessageHandle = (item) => {
     <h1>消息弹框</h1>
     <div>
       <button v-for='item in btns' :key = "item" @click="clickMessageHandle(item)">点击message 消息框--{{item}}</button>
+    </div>
+    <h1>点击messagebox</h1>
+    <div>
+      <button @click="messageBoxHandle">点击 messagebox</button>
     </div>
   </div>
 </template>
